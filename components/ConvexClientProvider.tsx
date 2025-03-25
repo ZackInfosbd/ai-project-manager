@@ -25,6 +25,15 @@ const SchematicWrapped = ({ children }: { children: React.ReactNode }) => {
     if (user?.id) {
       identify({
         name: userName,
+        keys: {
+          id: user.id,
+        },
+        company: {
+          name: userName,
+          keys: {
+            id: user.id,
+          },
+        },
       });
     }
   }, [user, identify]);

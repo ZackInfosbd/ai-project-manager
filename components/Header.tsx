@@ -29,7 +29,7 @@ const Header = () => {
             <Button variant="outline">My Projects</Button>
           </Link>
           <Link href="/manage-plan">
-            <Button>plan</Button>
+            <Button>Manage Subs</Button>
           </Link>
           <SignOutButton>
             <UserButton />
