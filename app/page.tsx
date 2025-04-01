@@ -1,3 +1,4 @@
+import DocumentDropezone from "@/components/DocumentDropezone";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
@@ -41,10 +42,10 @@ export default function Home() {
         </div>
 
         {/* PDF Dropzone */}
-        <div className="mt-12 flex justify-center">
+        <div className="mt-12 flex justify-center ">
           <div className="relative w-full max-w-3xl p-4 bg-white rounded-lg shadow-lg border border-purple-200 overflow-hidden dark:border-gray-800 dark:bg-gray-950">
             <div className="p-6 md:p-8 relative">
-              <p>PDF Dropzone goes here...</p>
+              <DocumentDropezone />
             </div>
           </div>
         </div>
