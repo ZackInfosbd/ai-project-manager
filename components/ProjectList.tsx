@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/table";
 import { Doc } from "@/convex/_generated/dataModel";
 import { useRouter } from "next/navigation";
-import { FileText } from "lucide-react";
+import { ChevronDown, ChevronRight, FileText } from "lucide-react";
 
 const ProjectList = () => {
   const { user } = useUser();
@@ -76,6 +76,29 @@ const ProjectList = () => {
                 <TableCell className="py-2">
                   <FileText className="h-6 w-6 text-red-500" />
                 </TableCell>
+                <TableCell className="font-medium">
+                  {project.fileDisplayName || project.fileName}
+                </TableCell>
+                <TableCell>
+                  {new Date(project.uploadedAt).toLocaleDateString()}
+                </TableCell>
+                <TableCell>{formatFileSize(project.size)}</TableCell>
+                <TableCell>
+                  {project.transactionAmount
+                    ? `${project.transactionAmount} ${project.transactionCurrency}`
+                    : "_"}
+                </TableCell>
+                <TableCell>
+                  <span
+                    className={`px-2 py-1 rounded-full text-xs ${project.status === "pending" ? "bg-yellow-100 text-yellow-800" : project.status === "processed" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}
+                  >
+                    {project.status.charAt(0).toUpperCase() +
+                      project.status.slice(1)}
+                  </span>
+                </TableCell>
+                <TableCell className="tet-right">
+                  <ChevronRight className="h-5 w-5 tet-gray-400 ml-auto" />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -86,3 +109,13 @@ const ProjectList = () => {
 };
 
 export default ProjectList;
+
+function formatFileSize(bytes: number): string {
+  if (bytes === 0) return "0 Bytes";
+
+  const k = 1024;
+  const sizes = ["Bytes", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+}
