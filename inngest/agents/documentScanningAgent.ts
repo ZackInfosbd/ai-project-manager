@@ -8,17 +8,66 @@ const parsePdfTool = createTool({
     pdfUrl: z.string(),
   }),
   handler: async ({ pdfUrl }, { step }) => {
-    return await step?.ai.infer("parse-pdf", {
-      model: anthropic({
-        model: "claude-3-5-sonnet-20241022",
-        defaultParameters: {
-          max_tokens: 3024,
+    try {
+      return await step?.ai.infer("parse-pdf", {
+        model: anthropic({
+          model: "claude-3-5-sonnet-20241022",
+          defaultParameters: {
+            max_tokens: 3024,
+          },
+        }),
+        body: {
+          messages: [
+            {
+              role: "user",
+              content: [
+                {
+                  type: "document",
+                  source: {
+                    type: "url",
+                    url: pdfUrl,
+                  },
+                },
+                {
+                  type: "text",
+                  text: `Extract te data from the project and return the structured output as follows:
+                      {
+                        "merchant":{
+                        "name": "Store Name",
+                        "address": "123 Main St, City, Country",
+                        "contactt": "+123456789"
+                              },
+                         "transaction": {
+                         "date": "YYYY-MM-DD"
+                         "project_number": "ABC123456",
+                         "payment_method": ""Credit Card"
+                              },
+                          "items": [
+                            {
+                              "name": "item 1",
+                              "quantity": 2,
+                              "unit_price": 10.00,
+                              "total_price": 20.00
+                            }
+                          ],
+                          "totals": {
+                              "subTotal": 20.00,
+                              "tax": 2.00,
+                              "total": 22.00,
+                              "currency": "EUR"
+                            }
+                        }
+                        `,
+                },
+              ],
+            },
+          ],
         },
-      }),
-      body: {
-        messages: [],
-      },
-    });
+      });
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   },
 });
 
