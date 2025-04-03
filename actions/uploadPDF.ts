@@ -5,6 +5,8 @@ import convex from "@/lib/convexClient";
 import { currentUser } from "@clerk/nextjs/server";
 import { z } from "zod";
 import { getFileDownloadUrl } from "./getFileDownloadUrl";
+import { inngest } from "@/inngest/client";
+import Events from "@/inngest/constants";
 
 const uploadPDFSchema = z.object({
   file: z.instanceof(File),
@@ -69,7 +71,13 @@ export async function uploadPDF(formData: FormData) {
     }
 
     // trigger Inngest AI Agent
-    //   TODO:
+    await inngest.send({
+      name: Events.Extract_DATA_FROM_PDF_AND_SAVE_TO_DATABASE,
+      data: {
+        url: fileUrl.downloadUrl,
+        projectId,
+      },
+    });
 
     return {
       success: true,

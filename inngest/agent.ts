@@ -38,12 +38,13 @@ export const server = createServer({
 });
 
 export const extractAndSavePDF = inngest.createFunction(
-  { event: Events.Extract_DATA_FROM_PDF_AND_SAVE_TO_DATABASE },
   { id: "Extract PDF and Save in Database" },
+  { event: Events.Extract_DATA_FROM_PDF_AND_SAVE_TO_DATABASE },
   async ({ event }) => {
     const result = await agentNetwork.run(
       `Extract te key data from this pdf: ${event.data.url}. Once the data is extracted, save it to te database using the projectId ${event.data.projectId}.Once the project is successufully saved to the database you can terminate te agent process. Start wit superVisor agent.`,
     );
+
     return result.state.kv.get("project");
   },
 );
