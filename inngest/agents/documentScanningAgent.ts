@@ -30,7 +30,7 @@ const parsePdfTool = createTool({
                 },
                 {
                   type: "text",
-                  text: `Extract te data from the project and return the structured output as follows:
+                  text: `Extract the data from the project and return the structured output as follows:
                       {
                         "merchant":{
                         "name": "Store Name",

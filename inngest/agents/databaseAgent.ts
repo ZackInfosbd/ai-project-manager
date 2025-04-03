@@ -12,9 +12,9 @@ const saveToDatabaseTool = createTool({
     fileDisplayName: z
       .string()
       .describe(
-        "The readable display name of the project  to show in te UI.if te file name is not human readable, use tis to give a more readable name",
+        "The readable display name of the project to show in the UI.if the file name is not human readable, use this to give a more readable name",
       ),
-    projectId: z.string().describe("The ID of te project to update"),
+    projectId: z.string().describe("The ID of the project to update"),
     merchantName: z.string(),
     merchantAddress: z.string(),
     mercantContact: z.string(),
@@ -22,12 +22,12 @@ const saveToDatabaseTool = createTool({
     transactionAmount: z
       .number()
       .describe(
-        "The total amount of te transaction, summing all te items on the project",
+        "The total amount of the transaction, summing all the items on the project",
       ),
     projectSummary: z
       .string()
       .describe(
-        "A summary of te project, including the merchant name, address, contact, transaction date, transaction amount, and currency. Include some key details about the project. Mention both invoice number and project number if both are present. Include some key details about the items on the project, this is a special featured summary so it should include some key details about the items on the project with sme context",
+        "A summary of the project, including the merchant name, address, contact, transaction date, transaction amount, and currency. Include some key details about the project. Mention both invoice number and project number if both are present. Include some key details about the items on the project, this is a special featured summary so it should include some key details about the items on the project with sme context",
       ),
     transactionCurrency: z.string(),
     items: z.array(
@@ -105,9 +105,9 @@ const saveToDatabaseTool = createTool({
 export const databaseAgent = createAgent({
   name: "Database Agent",
   description:
-    "Responsible for taking key information regarding projects and saving it to te convex database ",
+    "Responsible for taking key information regarding projects and saving it to the convex database ",
   system:
-    "You are a elpful assistant tat takes key informattion regarding projects and saves it to te convex database.",
+    "You are a elpful assistant tat takes key informattion regarding projects and saves it to the convex database.",
   model: openai({
     model: "gpt-4o-mini",
     defaultParameters: {
