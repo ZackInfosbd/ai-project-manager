@@ -74,7 +74,7 @@ const parsePdfTool = createTool({
 export const documentScanningAgent = createAgent({
   name: "Document Scanning Agent",
   description:
-    "Processes document images and PDFs and all documents of all possible extensions, to extract key information such as vendor namaes, dates and line items ",
+    "Processes document images and PDFs and all documents of all possible extensions, to extract key information such as vendor names, dates and line items ",
   system: `You are an AI-powered projects scanning assistant. Your primary role is to accurately extract and structure relevent information from scanned documents. Your task includes recognizing and parsing details such as:
         - Merchant Information: Store name, address, contact details.
         - Transaction Details: Date, time, projects number, payment method.

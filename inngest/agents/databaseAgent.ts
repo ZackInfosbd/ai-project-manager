@@ -7,7 +7,7 @@ import { z } from "zod";
 
 const saveToDatabaseTool = createTool({
   name: "save-to-database",
-  description: "Saves te given data to te convex database.",
+  description: "Saves the given data to the convex database.",
   parameters: z.object({
     fileDisplayName: z
       .string()

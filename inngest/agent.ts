@@ -9,6 +9,7 @@ import Events from "./constants";
 import { databaseAgent } from "./agents/databaseAgent";
 import { documentScanningAgent } from "./agents/documentScanningAgent";
 
+// Agents Network
 const agentNetwork = createNetwork({
   name: "Agent Team",
   agents: [databaseAgent, documentScanningAgent],
@@ -23,7 +24,7 @@ const agentNetwork = createNetwork({
     const savedToDatabase = network.state.kv.get("saved-to-database");
 
     if (savedToDatabase !== undefined) {
-      //   Terminate the agent process if te data as been saved to the database
+      //   Terminate the agent process if the data as been saved to the database
 
       return undefined;
     }
@@ -32,17 +33,19 @@ const agentNetwork = createNetwork({
   },
 });
 
+// Agents Server
 export const server = createServer({
   agents: [databaseAgent, documentScanningAgent],
   networks: [agentNetwork],
 });
 
+// Agents Function
 export const extractAndSavePDF = inngest.createFunction(
   { id: "Extract PDF and Save in Database" },
   { event: Events.Extract_DATA_FROM_PDF_AND_SAVE_TO_DATABASE },
   async ({ event }) => {
     const result = await agentNetwork.run(
-      `Extract te key data from this pdf: ${event.data.url}. Once the data is extracted, save it to te database using the projectId ${event.data.projectId}.Once the project is successufully saved to the database you can terminate te agent process. Start wit superVisor agent.`,
+      `Extract the key data from this pdf: ${event.data.url}. Once the data is extracted, save it to the database using the projectId ${event.data.projectId}.Once the project is successufully saved to the database you can terminate the agent process. Start with supervisor agent.`,
     );
 
     return result.state.kv.get("project");
