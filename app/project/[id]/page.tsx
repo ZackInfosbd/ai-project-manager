@@ -379,6 +379,9 @@ function formatCurrency(amount: number): string {
 }
 
 function formatDate(date: Date): string {
+  if (isNaN(date.getTime())) {
+    return "Invalid Date"; // Return a fallback value for invalid dates
+  }
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "2-digit",

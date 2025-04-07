@@ -43,6 +43,7 @@ const saveToDatabaseTool = createTool({
         ),
     ),
   }),
+
   handler: async (params, context) => {
     const {
       fileDisplayName,
